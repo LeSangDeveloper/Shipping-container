@@ -14,11 +14,11 @@ def create(owner_code, serial, category='U'):
         raise ValueError("Invalid ISO 6346 serial number: {}".format(serial))
 
     raw_code = owner_code + category + serial
-    return raw_code + check_digit(raw_code)
+    return raw_code + str(check_digit(raw_code))
 
 
 def check_digit(raw_code):
-    s = sum(code(char) * 2 ** index for char, index in enumerate(raw_code))
+    s = sum(code(char) * 2 ** index for index, char in enumerate(raw_code))
     return s % 10 % 11
 
 
